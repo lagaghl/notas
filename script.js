@@ -7,6 +7,8 @@ const confirm = document.querySelector('.header__confirm');
 const IDBRequest = indexedDB.open('Notas', 1);
 const tituloNode = document.querySelector('.header__titulo');
 const msgNode = document.querySelector('.escribir-nota__p');
+const confirmButton = document.querySelector('.header__confirm');
+const cancelButton = document.querySelector('header__cancel');
 let db;
 
 IDBRequest.addEventListener('upgradeneeded',(e)=>{
@@ -90,7 +92,7 @@ const createHTML = (id,titulo,msg)=>{
     return contenedor;
 }
 
-document.querySelector('.header__confirm').addEventListener('click',()=>{
+confirmButton.addEventListener('click',()=>{
     let key = tituloNode.attributes.key
     let titulo = tituloNode.textContent;
     let msg = msgNode.textContent;
@@ -98,6 +100,13 @@ document.querySelector('.header__confirm').addEventListener('click',()=>{
     else guardarNota(titulo,msg);
     closeNoteMode();
     goToMain();
+})
+cancelButton.addEventListener('click',()=>{
+    let cancelar = window.confirm('¿Quiere salir sin guardar?');
+    if (cancelar) {
+        closeNoteMode();
+        goToMain();
+    }
 })
 
 plusButton.addEventListener('click',(e)=>{
