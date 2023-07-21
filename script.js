@@ -8,21 +8,32 @@ const IDBRequest = indexedDB.open('Notas', 1);
 const tituloNode = document.querySelector('.header__titulo');
 const msgNode = document.querySelector('.escribir-nota__p');
 const confirmButton = document.querySelector('.header__confirm');
-const cancelButton = document.querySelector('header__cancel');
+const cancelButton = document.querySelector('.header__cancel');
 let db;
 
-IDBRequest.addEventListener('upgradeneeded',(e)=>{
-    db = e.target.result;
-    db.createObjectStore('notas', { keyPath: 'id', autoIncrement: true });
-})
-IDBRequest.addEventListener('success',(e)=>{
-    db = e.target.result;
+//Funciones:
+const resetNoteMode = ()=>{
+    tituloNode.textContent = 'Título';
+    tituloNode.removeAttribute('key');
+    msgNode.textContent = 'Comenzar a escribir';
+}
+const closeMain = ()=>{
+    main.style.animation = 'desaparecer 0.3s forwards';
+    main.style.display = 'none'
+}
+const goToNoteMode = ()=>{
+    note.style.animation = 'aparecer 0.2s forwards';
+    note.style.display = 'grid'
+}
+const closeNoteMode = ()=>{
+    note.style.animation = 'desaparecer 0.3s forwards';
+    note.style.display = 'none'
+}
+const goToMain = ()=>{
     obtenerNotas();
-    console.log('Base de datos abierta de forma exitosa');
-})
-IDBRequest.addEventListener('error',(e)=>{
-    console.error('No se pudo abrir la base de datos',e.target.error);
-})
+    main.style.animation = 'aparecer 0.2s forwards';
+    main.style.display = 'grid'
+}
 const transaction = (type)=>{
     const transaction = db.transaction(['notas'], type);
     return transaction.objectStore('notas');
@@ -56,7 +67,6 @@ const obtenerNotas = ()=>{
         }
     })
 }
-
 const createHTML = (id,titulo,msg)=>{
     const contenedor = document.createElement('div');
     const h2 = document.createElement('h2');
@@ -92,6 +102,23 @@ const createHTML = (id,titulo,msg)=>{
     return contenedor;
 }
 
+//EventListeners:
+
+IDBRequest.addEventListener('upgradeneeded',(e)=>{
+    db = e.target.result;
+    db.createObjectStore('notas', { keyPath: 'id', autoIncrement: true });
+})
+
+IDBRequest.addEventListener('success',(e)=>{
+    db = e.target.result;
+    obtenerNotas();
+    console.log('Base de datos abierta de forma exitosa');
+})
+
+IDBRequest.addEventListener('error',(e)=>{
+    console.error('No se pudo abrir la base de datos',e.target.error);
+})
+
 confirmButton.addEventListener('click',()=>{
     let key = tituloNode.attributes.key
     let titulo = tituloNode.textContent;
@@ -101,6 +128,7 @@ confirmButton.addEventListener('click',()=>{
     closeNoteMode();
     goToMain();
 })
+
 cancelButton.addEventListener('click',()=>{
     let cancelar = window.confirm('¿Quiere salir sin guardar?');
     if (cancelar) {
@@ -114,26 +142,3 @@ plusButton.addEventListener('click',(e)=>{
     resetNoteMode();
     goToNoteMode();
 })
-
-const resetNoteMode = ()=>{
-    tituloNode.textContent = 'Título';
-    tituloNode.removeAttribute('key');
-    msgNode.textContent = 'Comenzar a escribir';
-}
-const closeMain = ()=>{
-    main.style.animation = 'desaparecer 0.3s forwards';
-    main.style.display = 'none'
-}
-const goToNoteMode = ()=>{
-    note.style.animation = 'aparecer 0.2s forwards';
-    note.style.display = 'grid'
-}
-const closeNoteMode = ()=>{
-    note.style.animation = 'desaparecer 0.3s forwards';
-    note.style.display = 'none'
-}
-const goToMain = ()=>{
-    obtenerNotas();
-    main.style.animation = 'aparecer 0.2s forwards';
-    main.style.display = 'grid'
-}
