@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas</title>
+    <style>
+        .contenedor__borrar{
+            height: 22px;
+            padding: 12px;
+            margin: 10px;
+            align-self: center;
+        }
+
+        .header__cancel, .header__confirm{
+            height: 17px;
+            padding: 12px;
+            margin: 10px;
+            align-self: center;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="main">
+        <div class="contenedor"></div>
+        <button id="agregar_nota">+</button>
+    </main>
+    <div class="editor-notas">
+        <div class="header">
+            <img src="cruz.svg" alt="cancelar" class="header__cancel">
+            <div class="header__container"><h3 class="header__titulo" contenteditable="true">Título</h3></div>
+            <img src="controlar.svg" alt="confirmar" class="header__confirm">
+        </div>
+        <div class="escribir-nota">
+            <p class="escribir-nota__p" contenteditable="true">Comenzar a escribir</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+:root{
+    --crema:#f2f6d0;
+    --azul-claro:#d0e1d4;
+    --azul-focus:#c8d7cb;
+    --cafe-late:#d9d2b6;
+    --cafe-late-focus:#ccc5ab;
+    --rosado:#e4be9e;
+    --morado:#71697a;
+    --ocuro:#333;
+    --azul-oscuro-focus:#002f50;
+    --azul-oscuro:#003459;
+}
+body{
+    background-color: var(--crema);
+    display: relative;
+    font-family: sans-serif;
+    color: var(--oscuro);
+    margin: 0;
+    padding: 0;
+}
+.contenedor{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(180px, 1fr));
+    margin: 30px 15px 15px 15px;
+    gap: 7px;
+}
+.contenedor__div{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
+    background-color: var(--azul-claro);
+    border-radius: 10px;
+    padding: 6px;
+    overflow: hidden;
+    height: 220px;
+}
+.contenedor__div:focus{
+    scale: 1.02;
+    background-color: var(--azul-focus);
+}
+.contenedor__div-title{
+    margin: 19px 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    
+}
+.contenedor__div-p{
+    grid-column: 1/4;
+    font-size: 17px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+}
+#agregar_nota{
+    color:var(--cafe-late);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 40px;
+    font-size: 30px;
+    border: none;
+    border-radius: 10px;
+    padding: 4px 15px;
+    background-color: var(--azul-oscuro);
+}
+#agregar_nota:active{
+    background-color: var(--azul-oscuro-focus);
+    scale: 95%;
+}
+.main{
+    display: grid;
+}
+.editor-notas{
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    grid-template-rows: min-content 1fr;
+    overflow: hidden;
+}
+.header{
+    display: grid;
+    background-color: var(--cafe-late);
+    grid-template-columns: min-content 1fr min-content;
+    place-items: center;
+    height: 76px;
+    padding: 5px 12px;
+}
+.header__container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: auto;
+}
+.header__titulo{
+    outline: none;
+    min-width: 15px;
+    max-width: max-content;
+    white-space: nowrap;
+}
+.escribir-nota{
+    font-size: 17px;
+    overflow: auto;
+}
+.escribir-nota__p{
+    min-width: 15px;
+    margin: 12px;
+    outline: none;
+}
+.header__cancel:active, .header__confirm:active, .contenedor__borrar:active{
+    scale: 0.9;
+    transition: scale 80ms forwards;
+}
+
+@keyframes aparecer {
+    0%{
+        display: none;
+        opacity: 0;
+    }
+    100%{
+        display: grid;
+        opacity: 1;
+    }
+}
+@keyframes desaparecer {
+    0%{
+        display: grid;
+        opacity: 0;
+    }
+    100%{
+        display: none;
+        opacity: 1;
+    }
+}
