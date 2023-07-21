@@ -102,9 +102,15 @@ document.querySelector('.header__confirm').addEventListener('click',()=>{
 
 plusButton.addEventListener('click',(e)=>{
     closeMain();
+    resetNoteMode();
     goToNoteMode();
 })
 
+const resetNoteMode = ()=>{
+    tituloNode.textContent = 'Título';
+    tituloNode.removeAttribute('key');
+    msgNode.textContent = 'Comenzar a escribir';
+}
 const closeMain = ()=>{
     main.style.animation = 'desaparecer 0.3s forwards';
     main.style.display = 'none'
