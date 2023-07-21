@@ -34,10 +34,6 @@ body{
     overflow: hidden;
     height: 220px;
 }
-.contenedor__div:focus{
-    scale: 1.02;
-    background-color: var(--azul-focus);
-}
 .contenedor__div-title{
     margin: 19px 5px;
     white-space: nowrap;

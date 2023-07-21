@@ -71,14 +71,13 @@ const createHTML = (id,titulo,msg)=>{
     const contenedor = document.createElement('div');
     const h2 = document.createElement('h2');
     const p = document.createElement('p');
-    const img = document.createElement('img');
+    const borrar = document.createElement('img');
 
-    img.classList.add ('contenedor__borrar');
-    img.alt = 'borrar nota';
-    img.src = 'basura.svg';
+    borrar.classList.add ('contenedor__borrar');
+    borrar.alt = 'borrar nota';
+    borrar.src = 'basura.svg';
 
     contenedor.classList.add('contenedor__div');
-    contenedor.setAttribute('tabindex',0);
 
     h2.classList.add('contenedor__div-title');
     h2.textContent = titulo;
@@ -87,16 +86,21 @@ const createHTML = (id,titulo,msg)=>{
     p.textContent = msg;
 
     contenedor.appendChild(h2);
-    contenedor.appendChild(img);
+    contenedor.appendChild(borrar);
     contenedor.appendChild(p);
 
-    contenedor.addEventListener('dblclick',()=>{
+    contenedor.addEventListener('click',()=>{
         tituloNode.setAttribute('key',id);
         tituloNode.textContent = titulo;
         msgNode.textContent = msg;
 
         closeMain();
         goToNoteMode();
+    })
+
+    borrar.addEventListener('click',()=>{
+        eliminarNota(id);
+        obtenerNotas();
     })
 
     return contenedor;
