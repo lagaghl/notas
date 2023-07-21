@@ -76,6 +76,7 @@ const createHTML = (id,titulo,msg)=>{
     borrar.classList.add ('contenedor__borrar');
     borrar.alt = 'borrar nota';
     borrar.src = 'basura.svg';
+    borrar.height = '22px'
 
     contenedor.classList.add('contenedor__div');
 
@@ -89,20 +90,21 @@ const createHTML = (id,titulo,msg)=>{
     contenedor.appendChild(borrar);
     contenedor.appendChild(p);
 
-    contenedor.addEventListener('click',()=>{
-        tituloNode.setAttribute('key',id);
-        tituloNode.textContent = titulo;
-        msgNode.textContent = msg;
+    contenedor.addEventListener('click',(e)=>{
+        let target = e.target;
 
-        closeMain();
-        goToNoteMode();
+        if (target.classList.contains('contenedor__borrar')) {
+            eliminarNota(id);
+            contenedor.parentNode.removeChild(contenedor);
+        }else{
+            tituloNode.setAttribute('key',id);
+            tituloNode.textContent = titulo;
+            msgNode.textContent = msg;
+
+            closeMain();
+            goToNoteMode();
+        }
     })
-
-    borrar.addEventListener('click',()=>{
-        eliminarNota(id);
-        obtenerNotas();
-    })
-
     return contenedor;
 }
 
@@ -116,7 +118,6 @@ IDBRequest.addEventListener('upgradeneeded',(e)=>{
 IDBRequest.addEventListener('success',(e)=>{
     db = e.target.result;
     obtenerNotas();
-    console.log('Base de datos abierta de forma exitosa');
 })
 
 IDBRequest.addEventListener('error',(e)=>{
